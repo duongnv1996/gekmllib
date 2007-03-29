@@ -109,17 +109,17 @@ abstract public class Node implements Cloneable
 	return "";
     }
     
-    protected String toKML()
+    public String toKML()
     {
 	return toKML(false);
     }
 
-    protected String toUpdateKML()
+    public String toUpdateKML()
     {
 	return toUpdateKML(false);
     }
     
-    protected String toUpdateKML(boolean suppressEnclosingTags)
+    public String toUpdateKML(boolean suppressEnclosingTags)
     {
 	return "";
     }
