@@ -1,0 +1,18 @@
+<GroundOverlay>
+		<name>Wave directions</name>
+		<description>Significant Wave Height + Direction
+Oceanweather.com Inc.</description>
+		<color>44efefef</color>
+		<Icon>
+			<href>http://www.seeadlerpost.com/geocache/wavedirections/20nov2005satwave.gif</href>
+		</Icon>
+		<LatLonBox id="khLatLonBox516">
+			<north>30</north>
+			<south>-30</south>
+			<east>110</east>
+			<west>30</west>
+		</LatLonBox>
+			<TimeStamp>
+				<when>2005-08-21T09:01:00Z</when>
+			</TimeStamp>
+	</GroundOverlay>

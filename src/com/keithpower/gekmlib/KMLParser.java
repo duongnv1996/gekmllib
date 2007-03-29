@@ -17,12 +17,17 @@ public class KMLParser
     
     public KMLParser()
     {
-	this.digester = new Digester();
-	this.digester.setValidating( false );
-	setupRules();
+	this("kml", Kml.class);
     }
     
-    private void setupRules()
+    public KMLParser(String rootPath, Class rootClass)
+    {
+	this.digester = new Digester();
+	this.digester.setValidating( false );
+	setupRules(rootPath, rootClass);
+    }
+        
+    public void setupRules(String rootPath, Class rootClass)
     {
 	String [] StyleMapProperties = { };
 	String [] LodProperties = { "minLodPixels", "maxLodPixels", "minFadeExtent", "maxFadeExtent"};
@@ -79,8 +84,8 @@ public class KMLParser
 	String [] PlacemarkProperties = { };
 	String [] ListStyleProperties = { "listItemType"};
 	String path;
-	path="kml";
-	addObject(path, Kml.class);
+	path=rootPath;
+	addObject(path, rootClass);
 //	addProperties(path, KmlProperties);
 //	digester.addSetNext(path, "addKml");
 	path="*/StyleMap";
@@ -402,5 +407,10 @@ public class KMLParser
     public Kml parse(File aFile) throws IOException, SAXException
     {
 	return (Kml)this.digester.parse(aFile);
+    }   
+    
+    public Node parseFragment(File aFile) throws IOException, SAXException
+    {
+	return (Node)this.digester.parse(aFile);
     }   
 }
