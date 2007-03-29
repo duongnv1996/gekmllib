@@ -46,7 +46,7 @@ public class LoadAndModifyExample
 	    ge.toUpdateKML();
 
 	    // Now, change a lookAt deep in the document
-	    ge.getFolder().getFolders().get(0).getPlacemarks().get(0).getLookAt().setAltitude(666.0);
+	    ge.getFolder().getFolders()[0].getPlacemarks()[0].getLookAt().setAltitude(666.0);
 
 	    // Now, get the KML to produce the update and print it
 	    System.out.println(ge.toUpdateKML());
