@@ -5,18 +5,31 @@
 
 Welcome to the gekmllib project, a Java library designed to ease the creation and manipulation of KML for Google Earth.
 
-This is version 0.01 of the library, it's nowhere near a complete implementation. 
+This is version 0.03 of the library, it's nowhere near a complete implementation. 
 
 = Details =
 
 The classes are designed so that you can only add correct elements to each other, eg you can't add a GroundOverlay to a Placemark. There is currently no Schema validation carried out.
 
-A simple driver app is included, source is in the JAR.
+Source now in SVN.
 
-Source for the project hasn't been uploaded yet, if you need it email me. 
+More Documentation on the way.
+
 
 Current Limitations: 
-Enums not added yet, you have to use full strings eg "clampToGround"
 No convenient constructors, all classes use empty constructor, and are then initialised using getters and setters (as per Bean spec).
 
-*Note: Requires Java 5*
+There is currently no Schema validation carried out.
+
+*Note: No longer requires Java 5*
+
+CHANGELOG
+
+Version 0.03
+-------------------------------------------------------------------------------------
+Made Java 1.4 compliant (this changed API)
+Removed all StringBuilder refs (Java compiler converts String append to these anyway)
+Added ability to turn off autogeneration of IDs in KML Objects (Configuration class)
+Added basic functionality to LongDate, now supports years as BigIntegers
+Fixed error outputting coordinates (commas and spaces mixed up)
+Added 4 separate examples (pip.*)
