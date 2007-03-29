@@ -28,8 +28,13 @@ CHANGELOG
 Version 0.03
 -------------------------------------------------------------------------------------
 Made Java 1.4 compliant (this changed API)
+
 Removed all StringBuilder refs (Java compiler converts String append to these anyway)
+
 Added ability to turn off autogeneration of IDs in KML Objects (Configuration class)
+
 Added basic functionality to LongDate, now supports years as BigIntegers
+
 Fixed error outputting coordinates (commas and spaces mixed up)
+
 Added 4 separate examples (pip.*)
