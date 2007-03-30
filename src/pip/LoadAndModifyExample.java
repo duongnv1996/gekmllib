@@ -2,19 +2,17 @@ package pip;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.Reader;
-import java.io.StringReader;
-
-import org.apache.commons.digester.Digester;
 import org.xml.sax.SAXException;
 
-import com.keithpower.gekmlib.*;
+import com.keithpower.gekmlib.Configuration;
+import com.keithpower.gekmlib.KMLParser;
+import com.keithpower.gekmlib.Kml;
 
 /**
  * Simple example showing how to load a KML file, modify it
  * and get the KML UpdateKML
  * @author Keith Power March 2007
- * @version 0.01
+ * @version 0.03
  */
 
 public class LoadAndModifyExample

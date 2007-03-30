@@ -2,18 +2,18 @@ package pip;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.Reader;
-import java.io.StringReader;
 
-import org.apache.commons.digester.Digester;
 import org.xml.sax.SAXException;
 
-import com.keithpower.gekmlib.*;
+import com.keithpower.gekmlib.Configuration;
+import com.keithpower.gekmlib.KMLParser;
+import com.keithpower.gekmlib.GroundOverlay;
+import com.keithpower.gekmlib.Node;
 
 /**
  * Simple example, showing how to load and print a KML fragment
  * @author Keith Power March 2007
- * @version 0.01
+ * @version 0.03
  */
 
 public class LoadFragmentExample
@@ -34,7 +34,7 @@ public class LoadFragmentExample
 	     * Load the document into a Kml object.
 	     */
 	    KMLParser parser = new KMLParser("GroundOverlay", GroundOverlay.class);
-	    Node ge = parser.parseFragment(new File("groundoverlayfragment.kml"));
+	    GroundOverlay ge = (GroundOverlay)parser.parseFragment(new File("groundoverlayfragment.kml"));
 	    System.out.println(ge.toKML());	    
 	} catch (IOException e)
 	{

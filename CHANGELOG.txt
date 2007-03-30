@@ -1,5 +1,11 @@
 CHANGELOG
 
+Version 0.04
+Added first version of documentation (docs folder)
+Added Ant build task build.xml
+Supports parsing KML fragments (KMLParser and Node modified)
+Added ParseFragmentExample.java
+
 Version 0.03
 Made Java 1.4 compliant (this changed API)
 Removed all StringBuilder refs (Java compiler converts String append to these anyway)
