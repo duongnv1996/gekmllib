@@ -1,22 +1,22 @@
-#summary Placeholder for documentation
+#summary Introduction, news etc
 #labels Featured
-
 = Introduction =
 
 Welcome to the gekmllib project, a Java library designed to ease the creation and manipulation of KML for Google Earth.
 
 This is version 0.03 of the library, it's nowhere near a complete implementation. 
 
+= News =
+
+Source now in SVN.
+
+Documentation in docs dir in SVN, will make it into next Jar release.
+
 = Details =
 
 The classes are designed so that you can only add correct elements to each other, eg you can't add a GroundOverlay to a Placemark. There is currently no Schema validation carried out.
 
-Source now in SVN.
-
-More Documentation on the way.
-
-
-Current Limitations: 
+= Current Limitations =
 No convenient constructors, all classes use empty constructor, and are then initialised using getters and setters (as per Bean spec).
 
 There is currently no Schema validation carried out.
