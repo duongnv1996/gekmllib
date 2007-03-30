@@ -1,26 +1,23 @@
 package pip;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.Reader;
-import java.io.StringReader;
+import com.keithpower.gekmlib.Folder;
+import com.keithpower.gekmlib.Kml;
+import com.keithpower.gekmlib.LineString;
+import com.keithpower.gekmlib.Placemark;
+import com.keithpower.gekmlib.Point;
 
-import org.apache.commons.digester.Digester;
-import org.xml.sax.SAXException;
-
-import com.keithpower.gekmlib.*;
 
 /**
  * This is a first bash, there's still much to be done.
  * Including catching the CloneNotSupportedException  
  * 
  * @author Keith Power March 2007
- * @version 0.01
+ * @version 0.03
  */
 
 public class CreateAndModifyExample
 {
-    public static void main(String[] args) throws CloneNotSupportedException
+    public static void main(String[] args)
     {
 	// Start with a blank Kml object, give it a URL
 	Kml doc = new Kml();

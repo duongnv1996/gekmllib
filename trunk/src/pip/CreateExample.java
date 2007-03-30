@@ -1,22 +1,17 @@
 package pip;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.Reader;
-import java.io.StringReader;
-
-import org.apache.commons.digester.Digester;
-import org.xml.sax.SAXException;
-
-import com.keithpower.gekmlib.*;
-
 /**
  * A simple example showing how to create a Kml document from
  * scratch.
  *  
  * @author Keith Power March 2007
- * @version 0.01
+ * @version 0.03
  */
+
+import com.keithpower.gekmlib.Folder;
+import com.keithpower.gekmlib.Kml;
+import com.keithpower.gekmlib.Placemark;
+import com.keithpower.gekmlib.Point;
 
 public class CreateExample
 {
