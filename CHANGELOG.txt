@@ -5,6 +5,7 @@ Added first version of documentation (docs folder)
 Added Ant build task build.xml
 Supports parsing KML fragments (KMLParser and Node modified)
 Added ParseFragmentExample.java
+Fixed Issue #10 Missing / in closing tag of Create->Folder
 
 Version 0.03
 Made Java 1.4 compliant (this changed API)
