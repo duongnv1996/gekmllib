@@ -210,7 +210,7 @@ abstract public class Node implements Cloneable
 			    + newNodeParent.getClass().getSimpleName()
 			    + " targetId=\"" + newNodeParent.getId() + "\">\n");
 		    create.append(newNode.toKML());
-		    create.append("<"
+		    create.append("</"
 			    + newNodeParent.getClass().getSimpleName() + ">\n");
 		} else
 		{
