@@ -9,9 +9,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 public class Location extends ObjectNode
 {
-    protected double longitude;
+    public static double DEFAULT_LONGITUDE=0;
+    protected double longitude = DEFAULT_LONGITUDE;
     private boolean isLongitudeDirty;
-    protected double latitude;
+    public static double DEFAULT_LATITUDE=0;
+    protected double latitude = DEFAULT_LATITUDE;
     private boolean isLatitudeDirty;
     public static double DEFAULT_ALTITUDE=0;
     protected double altitude = DEFAULT_ALTITUDE;
@@ -87,8 +89,14 @@ public class Location extends ObjectNode
         kml+=">\n";
         }
         kml+=super.toKML(true);
-        kml+="<longitude>"+this.longitude+"</longitude>\n";
-        kml+="<latitude>"+this.latitude+"</latitude>\n";
+        if(this.longitude!=DEFAULT_LONGITUDE)
+        {
+            kml+="<longitude>"+this.longitude+"</longitude>\n";
+        }
+        if(this.latitude!=DEFAULT_LATITUDE)
+        {
+            kml+="<latitude>"+this.latitude+"</latitude>\n";
+        }
         if(this.altitude!=DEFAULT_ALTITUDE)
         {
             kml+="<altitude>"+this.altitude+"</altitude>\n";

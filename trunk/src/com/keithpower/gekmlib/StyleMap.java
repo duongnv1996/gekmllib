@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 public class StyleMap extends StyleSelector
 {
-    protected StyleMapPair pair;
+    protected List pair = new ArrayList();
 
 
     public StyleMap()
@@ -22,22 +22,28 @@ public class StyleMap extends StyleSelector
         super(parent);
     }
 
-    public StyleMapPair getPair()
+    public StyleMapPair [] getPairs()
     {
-        return this.pair;
+        StyleMapPair [] array = new StyleMapPair[this.pair.size()];
+        return (StyleMapPair [])this.pair.toArray(array);
+    }
+
+    public void removePair(StyleMapPair value)
+    {
+        if(value!=null)
+        {
+            markDeletedNode(value);
+            this.pair.remove(value);
+        }
     }
 
     public void addPair(StyleMapPair value)
     {
-        if(this.pair!=null)
-        {
-            markDeletedNode(this.pair);
-        }
-        this.pair = value;
         if(value!=null)
         {
             value.setParent(this);
             markCreatedNode(value);
+            this.pair.add(value);
         }
     }
 
@@ -64,9 +70,10 @@ public class StyleMap extends StyleSelector
         kml+=">\n";
         }
         kml+=super.toKML(true);
-        if(this.pair!=null)
+        for (Iterator iter = this.pair.iterator(); iter.hasNext();)
         {
-            kml+=this.pair.toKML();
+            StyleMapPair cur = (StyleMapPair)iter.next();
+            kml+=cur.toKML();
         }
         if(!suppressEnclosingTags)
         {
@@ -100,9 +107,13 @@ public class StyleMap extends StyleSelector
         change+=">\n";
         }
         change+=super.toUpdateKML(true);
-        if(this.pair!=null && this.pair.isDirty())
+        for (Iterator iter = this.pair.iterator(); iter.hasNext();)
         {
-            change+=this.pair.toUpdateKML();
+            StyleMapPair cur = (StyleMapPair)iter.next();
+            if(cur.isDirty())
+            {
+                change+=cur.toUpdateKML();
+            }
         }
         if(isPrimDirty && !suppressEnclosingTags)
         {
@@ -116,17 +127,24 @@ public class StyleMap extends StyleSelector
         StyleMap result = (StyleMap)super.clone();
       if(result.pair!=null)
       {
-        result.pair = (StyleMapPair)this.pair.clone();
-        result.pair.setParent(result);
+        result.pair = new ArrayList();
+        for (Iterator iter = this.pair.iterator(); iter.hasNext();)
+        {
+            StyleMapPair element = (StyleMapPair)iter.next();
+            StyleMapPair elementClone = (StyleMapPair)element.clone();
+            elementClone.setParent(result);
+        result.pair.add(elementClone);
+        }
       }
         return result;
     }
     public void setRecursiveNotDirty()
     {
         super.setRecursiveNotDirty();
-        if(this.pair!=null && this.pair.isDirty())
+        for (Iterator iter = this.pair.iterator(); iter.hasNext();)
         {
-            this.pair.setRecursiveNotDirty();
+            StyleMapPair cur = (StyleMapPair)iter.next();
+            cur.setRecursiveNotDirty();
         }
     }
 }

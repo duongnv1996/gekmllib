@@ -9,7 +9,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 public class Model extends Geometry
 {
-    protected String altitudeMode;
+    public static String DEFAULT_ALTITUDEMODE="clampToGround";
+    protected String altitudeMode = DEFAULT_ALTITUDEMODE;
     private boolean isAltitudeModeDirty;
     protected Location location;
     protected Orientation orientation;

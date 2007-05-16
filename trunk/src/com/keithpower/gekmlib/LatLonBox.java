@@ -9,15 +9,18 @@ import java.util.ArrayList;
 import java.util.Iterator;
 public class LatLonBox extends ObjectNode
 {
-    protected double north;
+    public static double DEFAULT_NORTH=180.0;
+    protected double north = DEFAULT_NORTH;
     private boolean isNorthDirty;
     protected double south;
     private boolean isSouthDirty;
-    protected double east;
+    public static double DEFAULT_EAST=180.0;
+    protected double east = DEFAULT_EAST;
     private boolean isEastDirty;
     protected double west;
     private boolean isWestDirty;
-    protected double rotation;
+    public static double DEFAULT_ROTATION=0;
+    protected double rotation = DEFAULT_ROTATION;
     private boolean isRotationDirty;
 
 
@@ -114,11 +117,20 @@ public class LatLonBox extends ObjectNode
         kml+=">\n";
         }
         kml+=super.toKML(true);
-        kml+="<north>"+this.north+"</north>\n";
+        if(this.north!=DEFAULT_NORTH)
+        {
+            kml+="<north>"+this.north+"</north>\n";
+        }
         kml+="<south>"+this.south+"</south>\n";
-        kml+="<east>"+this.east+"</east>\n";
+        if(this.east!=DEFAULT_EAST)
+        {
+            kml+="<east>"+this.east+"</east>\n";
+        }
         kml+="<west>"+this.west+"</west>\n";
-        kml+="<rotation>"+this.rotation+"</rotation>\n";
+        if(this.rotation!=DEFAULT_ROTATION)
+        {
+            kml+="<rotation>"+this.rotation+"</rotation>\n";
+        }
         if(!suppressEnclosingTags)
         {
             kml+="</LatLonBox>\n";

@@ -15,12 +15,12 @@ public class LinearRing extends Geometry
     public static boolean DEFAULT_TESSELLATE=false;
     protected boolean tessellate = DEFAULT_TESSELLATE;
     private boolean isTessellateDirty;
-    protected String altitudeMode;
+    public static String DEFAULT_ALTITUDEMODE="clampToGround";
+    protected String altitudeMode = DEFAULT_ALTITUDEMODE;
     private boolean isAltitudeModeDirty;
 //    protected String coordinates;
     private boolean isCoordinatesDirty;
     protected double [] coordinates;
-
 
     public LinearRing()
     {

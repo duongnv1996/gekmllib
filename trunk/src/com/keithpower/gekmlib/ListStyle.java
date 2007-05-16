@@ -9,11 +9,13 @@ import java.util.ArrayList;
 import java.util.Iterator;
 public class ListStyle extends ObjectNode
 {
-    protected String listItemType;
+    public static String DEFAULT_LISTITEMTYPE="check";
+    protected String listItemType = DEFAULT_LISTITEMTYPE;
     private boolean isListItemTypeDirty;
-    protected java.awt.Color bgColor;
+    public static java.awt.Color DEFAULT_BGCOLOR=Utility.createColor("ffffffff");
+    protected java.awt.Color bgColor = DEFAULT_BGCOLOR;
     private boolean isBgColorDirty;
-    protected ItemIcon itemIcon;
+    protected List itemIcon = new ArrayList();
 
 
     public ListStyle()
@@ -45,15 +47,7 @@ public class ListStyle extends ObjectNode
 
     public void setBgColor(String hexValue)
     {
-        if(hexValue.length()!=8)
-        {
-             return;
-        }
-        int alpha = Integer.valueOf(hexValue.substring(0, 2), 16).intValue();
-        int r = Integer.valueOf(hexValue.substring(2, 4), 16).intValue();
-        int g = Integer.valueOf(hexValue.substring(4, 6), 16).intValue();
-        int b = Integer.valueOf(hexValue.substring(6, 8), 16).intValue();
-        java.awt.Color newCol = new java.awt.Color(r, g, b, alpha);
+        java.awt.Color newCol = Utility.createColor(hexValue);
         this.bgColor = newCol;
         this.isBgColorDirty = true;
         setDirty();
@@ -66,22 +60,28 @@ public class ListStyle extends ObjectNode
         setDirty();
     }
 
-    public ItemIcon getItemIcon()
+    public ItemIcon [] getItemIcons()
     {
-        return this.itemIcon;
+        ItemIcon [] array = new ItemIcon[this.itemIcon.size()];
+        return (ItemIcon [])this.itemIcon.toArray(array);
+    }
+
+    public void removeItemIcon(ItemIcon value)
+    {
+        if(value!=null)
+        {
+            markDeletedNode(value);
+            this.itemIcon.remove(value);
+        }
     }
 
     public void addItemIcon(ItemIcon value)
     {
-        if(this.itemIcon!=null)
-        {
-            markDeletedNode(this.itemIcon);
-        }
-        this.itemIcon = value;
         if(value!=null)
         {
             value.setParent(this);
             markCreatedNode(value);
+            this.itemIcon.add(value);
         }
     }
 
@@ -116,9 +116,10 @@ public class ListStyle extends ObjectNode
       {
             kml+="<bgColor>"+SpecialCaseFormatter.toKMLString(this.bgColor)+"</bgColor>\n";
       }
-        if(this.itemIcon!=null)
+        for (Iterator iter = this.itemIcon.iterator(); iter.hasNext();)
         {
-            kml+=this.itemIcon.toKML();
+            ItemIcon cur = (ItemIcon)iter.next();
+            kml+=cur.toKML();
         }
         if(!suppressEnclosingTags)
         {
@@ -162,9 +163,13 @@ public class ListStyle extends ObjectNode
             change+="<bgColor>"+SpecialCaseFormatter.toKMLString(this.bgColor)+"</bgColor>\n";
             this.isBgColorDirty = false;
         }
-        if(this.itemIcon!=null && this.itemIcon.isDirty())
+        for (Iterator iter = this.itemIcon.iterator(); iter.hasNext();)
         {
-            change+=this.itemIcon.toUpdateKML();
+            ItemIcon cur = (ItemIcon)iter.next();
+            if(cur.isDirty())
+            {
+                change+=cur.toUpdateKML();
+            }
         }
         if(isPrimDirty && !suppressEnclosingTags)
         {
@@ -178,8 +183,14 @@ public class ListStyle extends ObjectNode
         ListStyle result = (ListStyle)super.clone();
       if(result.itemIcon!=null)
       {
-        result.itemIcon = (ItemIcon)this.itemIcon.clone();
-        result.itemIcon.setParent(result);
+        result.itemIcon = new ArrayList();
+        for (Iterator iter = this.itemIcon.iterator(); iter.hasNext();)
+        {
+            ItemIcon element = (ItemIcon)iter.next();
+            ItemIcon elementClone = (ItemIcon)element.clone();
+            elementClone.setParent(result);
+        result.itemIcon.add(elementClone);
+        }
       }
         return result;
     }
@@ -188,9 +199,10 @@ public class ListStyle extends ObjectNode
         super.setRecursiveNotDirty();
         this.isListItemTypeDirty = false;
         this.isBgColorDirty = false;
-        if(this.itemIcon!=null && this.itemIcon.isDirty())
+        for (Iterator iter = this.itemIcon.iterator(); iter.hasNext();)
         {
-            this.itemIcon.setRecursiveNotDirty();
+            ItemIcon cur = (ItemIcon)iter.next();
+            cur.setRecursiveNotDirty();
         }
     }
 }

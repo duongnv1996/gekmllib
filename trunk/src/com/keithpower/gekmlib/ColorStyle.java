@@ -9,9 +9,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 abstract public class ColorStyle extends ObjectNode
 {
-    protected java.awt.Color color;
+    public static java.awt.Color DEFAULT_COLOR=Utility.createColor("ffffffff");
+    protected java.awt.Color color = DEFAULT_COLOR;
     private boolean isColorDirty;
-    protected String colorMode;
+    public static String DEFAULT_COLORMODE="normal";
+    protected String colorMode = DEFAULT_COLORMODE;
     private boolean isColorModeDirty;
 
 
@@ -32,15 +34,7 @@ abstract public class ColorStyle extends ObjectNode
 
     public void setColor(String hexValue)
     {
-        if(hexValue.length()!=8)
-        {
-             return;
-        }
-        int alpha = Integer.valueOf(hexValue.substring(0, 2), 16).intValue();
-        int r = Integer.valueOf(hexValue.substring(2, 4), 16).intValue();
-        int g = Integer.valueOf(hexValue.substring(4, 6), 16).intValue();
-        int b = Integer.valueOf(hexValue.substring(6, 8), 16).intValue();
-        java.awt.Color newCol = new java.awt.Color(r, g, b, alpha);
+        java.awt.Color newCol = Utility.createColor(hexValue);
         this.color = newCol;
         this.isColorDirty = true;
         setDirty();

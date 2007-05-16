@@ -15,10 +15,11 @@ public class Polygon extends Geometry
     public static boolean DEFAULT_TESSELLATE=false;
     protected boolean tessellate = DEFAULT_TESSELLATE;
     private boolean isTessellateDirty;
-    protected String altitudeMode;
+    public static String DEFAULT_ALTITUDEMODE="clampToGround";
+    protected String altitudeMode = DEFAULT_ALTITUDEMODE;
     private boolean isAltitudeModeDirty;
     protected boundary outerBoundaryIs;
-    protected boundary innerBoundaryIs;
+    protected List innerBoundaryIs = new ArrayList();
 
 
     public Polygon()
@@ -86,22 +87,28 @@ public class Polygon extends Geometry
         }
     }
 
-    public boundary getInnerBoundaryIs()
+    public boundary [] getInnerBoundaryIss()
     {
-        return this.innerBoundaryIs;
+        boundary [] array = new boundary[this.innerBoundaryIs.size()];
+        return (boundary [])this.innerBoundaryIs.toArray(array);
+    }
+
+    public void removeInnerBoundaryIs(boundary value)
+    {
+        if(value!=null)
+        {
+            markDeletedNode(value);
+            this.innerBoundaryIs.remove(value);
+        }
     }
 
     public void addInnerBoundaryIs(boundary value)
     {
-        if(this.innerBoundaryIs!=null)
-        {
-            markDeletedNode(this.innerBoundaryIs);
-        }
-        this.innerBoundaryIs = value;
         if(value!=null)
         {
             value.setParent(this);
             markCreatedNode(value);
+            this.innerBoundaryIs.add(value);
         }
     }
 
@@ -144,9 +151,10 @@ public class Polygon extends Geometry
         {
             kml+=this.outerBoundaryIs.toKML();
         }
-        if(this.innerBoundaryIs!=null)
+        for (Iterator iter = this.innerBoundaryIs.iterator(); iter.hasNext();)
         {
-            kml+=this.innerBoundaryIs.toKML();
+            boundary cur = (boundary)iter.next();
+            kml+=cur.toKML();
         }
         if(!suppressEnclosingTags)
         {
@@ -199,9 +207,13 @@ public class Polygon extends Geometry
         {
             change+=this.outerBoundaryIs.toUpdateKML();
         }
-        if(this.innerBoundaryIs!=null && this.innerBoundaryIs.isDirty())
+        for (Iterator iter = this.innerBoundaryIs.iterator(); iter.hasNext();)
         {
-            change+=this.innerBoundaryIs.toUpdateKML();
+            boundary cur = (boundary)iter.next();
+            if(cur.isDirty())
+            {
+                change+=cur.toUpdateKML();
+            }
         }
         if(isPrimDirty && !suppressEnclosingTags)
         {
@@ -220,8 +232,14 @@ public class Polygon extends Geometry
       }
       if(result.innerBoundaryIs!=null)
       {
-        result.innerBoundaryIs = (boundary)this.innerBoundaryIs.clone();
-        result.innerBoundaryIs.setParent(result);
+        result.innerBoundaryIs = new ArrayList();
+        for (Iterator iter = this.innerBoundaryIs.iterator(); iter.hasNext();)
+        {
+            boundary element = (boundary)iter.next();
+            boundary elementClone = (boundary)element.clone();
+            elementClone.setParent(result);
+        result.innerBoundaryIs.add(elementClone);
+        }
       }
         return result;
     }
@@ -235,9 +253,10 @@ public class Polygon extends Geometry
         {
             this.outerBoundaryIs.setRecursiveNotDirty();
         }
-        if(this.innerBoundaryIs!=null && this.innerBoundaryIs.isDirty())
+        for (Iterator iter = this.innerBoundaryIs.iterator(); iter.hasNext();)
         {
-            this.innerBoundaryIs.setRecursiveNotDirty();
+            boundary cur = (boundary)iter.next();
+            cur.setRecursiveNotDirty();
         }
     }
 }

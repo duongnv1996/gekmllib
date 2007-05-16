@@ -9,19 +9,25 @@ import java.util.ArrayList;
 import java.util.Iterator;
 public class LookAt extends ObjectNode
 {
-    protected double longitude;
+    public static double DEFAULT_LONGITUDE=0;
+    protected double longitude = DEFAULT_LONGITUDE;
     private boolean isLongitudeDirty;
-    protected double latitude;
+    public static double DEFAULT_LATITUDE=0;
+    protected double latitude = DEFAULT_LATITUDE;
     private boolean isLatitudeDirty;
-    protected double altitude;
+    public static double DEFAULT_ALTITUDE=0;
+    protected double altitude = DEFAULT_ALTITUDE;
     private boolean isAltitudeDirty;
     protected double range;
     private boolean isRangeDirty;
-    protected double tilt;
+    public static double DEFAULT_TILT=0;
+    protected double tilt = DEFAULT_TILT;
     private boolean isTiltDirty;
-    protected double heading;
+    public static double DEFAULT_HEADING=0;
+    protected double heading = DEFAULT_HEADING;
     private boolean isHeadingDirty;
-    protected String altitudeMode;
+    public static String DEFAULT_ALTITUDEMODE="clampToGround";
+    protected String altitudeMode = DEFAULT_ALTITUDEMODE;
     private boolean isAltitudeModeDirty;
 
 
@@ -142,12 +148,27 @@ public class LookAt extends ObjectNode
         kml+=">\n";
         }
         kml+=super.toKML(true);
-        kml+="<longitude>"+this.longitude+"</longitude>\n";
-        kml+="<latitude>"+this.latitude+"</latitude>\n";
-        kml+="<altitude>"+this.altitude+"</altitude>\n";
+        if(this.longitude!=DEFAULT_LONGITUDE)
+        {
+            kml+="<longitude>"+this.longitude+"</longitude>\n";
+        }
+        if(this.latitude!=DEFAULT_LATITUDE)
+        {
+            kml+="<latitude>"+this.latitude+"</latitude>\n";
+        }
+        if(this.altitude!=DEFAULT_ALTITUDE)
+        {
+            kml+="<altitude>"+this.altitude+"</altitude>\n";
+        }
         kml+="<range>"+this.range+"</range>\n";
-        kml+="<tilt>"+this.tilt+"</tilt>\n";
-        kml+="<heading>"+this.heading+"</heading>\n";
+        if(this.tilt!=DEFAULT_TILT)
+        {
+            kml+="<tilt>"+this.tilt+"</tilt>\n";
+        }
+        if(this.heading!=DEFAULT_HEADING)
+        {
+            kml+="<heading>"+this.heading+"</heading>\n";
+        }
       if(this.altitudeMode!=null)
       {
             kml+="<altitudeMode>"+SpecialCaseFormatter.toKMLString(this.altitudeMode)+"</altitudeMode>\n";

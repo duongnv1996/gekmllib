@@ -9,11 +9,14 @@ import java.util.ArrayList;
 import java.util.Iterator;
 public class Orientation extends ObjectNode
 {
-    protected double heading;
+    public static double DEFAULT_HEADING=0.0;
+    protected double heading = DEFAULT_HEADING;
     private boolean isHeadingDirty;
-    protected double tilt;
+    public static double DEFAULT_TILT=0.0;
+    protected double tilt = DEFAULT_TILT;
     private boolean isTiltDirty;
-    protected double roll;
+    public static double DEFAULT_ROLL=0.0;
+    protected double roll = DEFAULT_ROLL;
     private boolean isRollDirty;
 
 
@@ -86,9 +89,18 @@ public class Orientation extends ObjectNode
         kml+=">\n";
         }
         kml+=super.toKML(true);
-        kml+="<heading>"+this.heading+"</heading>\n";
-        kml+="<tilt>"+this.tilt+"</tilt>\n";
-        kml+="<roll>"+this.roll+"</roll>\n";
+        if(this.heading!=DEFAULT_HEADING)
+        {
+            kml+="<heading>"+this.heading+"</heading>\n";
+        }
+        if(this.tilt!=DEFAULT_TILT)
+        {
+            kml+="<tilt>"+this.tilt+"</tilt>\n";
+        }
+        if(this.roll!=DEFAULT_ROLL)
+        {
+            kml+="<roll>"+this.roll+"</roll>\n";
+        }
         if(!suppressEnclosingTags)
         {
             kml+="</Orientation>\n";

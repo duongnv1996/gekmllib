@@ -11,15 +11,20 @@ public class Link extends ObjectNode
 {
     protected String href;
     private boolean isHrefDirty;
-    protected String refreshMode;
+    public static String DEFAULT_REFRESHMODE="onChange";
+    protected String refreshMode = DEFAULT_REFRESHMODE;
     private boolean isRefreshModeDirty;
-    protected float refreshInterval;
+    public static float DEFAULT_REFRESHINTERVAL=4;
+    protected float refreshInterval = DEFAULT_REFRESHINTERVAL;
     private boolean isRefreshIntervalDirty;
-    protected String viewRefreshMode;
+    public static String DEFAULT_VIEWREFRESHMODE="never";
+    protected String viewRefreshMode = DEFAULT_VIEWREFRESHMODE;
     private boolean isViewRefreshModeDirty;
-    protected float viewRefreshTime;
+    public static float DEFAULT_VIEWREFRESHTIME=4;
+    protected float viewRefreshTime = DEFAULT_VIEWREFRESHTIME;
     private boolean isViewRefreshTimeDirty;
-    protected float viewBoundScale;
+    public static float DEFAULT_VIEWBOUNDSCALE=1;
+    protected float viewBoundScale = DEFAULT_VIEWBOUNDSCALE;
     private boolean isViewBoundScaleDirty;
     protected String viewFormat;
     private boolean isViewFormatDirty;
@@ -164,13 +169,22 @@ public class Link extends ObjectNode
       {
             kml+="<refreshMode>"+SpecialCaseFormatter.toKMLString(this.refreshMode)+"</refreshMode>\n";
       }
-        kml+="<refreshInterval>"+this.refreshInterval+"</refreshInterval>\n";
+        if(this.refreshInterval!=DEFAULT_REFRESHINTERVAL)
+        {
+            kml+="<refreshInterval>"+this.refreshInterval+"</refreshInterval>\n";
+        }
       if(this.viewRefreshMode!=null)
       {
             kml+="<viewRefreshMode>"+SpecialCaseFormatter.toKMLString(this.viewRefreshMode)+"</viewRefreshMode>\n";
       }
-        kml+="<viewRefreshTime>"+this.viewRefreshTime+"</viewRefreshTime>\n";
-        kml+="<viewBoundScale>"+this.viewBoundScale+"</viewBoundScale>\n";
+        if(this.viewRefreshTime!=DEFAULT_VIEWREFRESHTIME)
+        {
+            kml+="<viewRefreshTime>"+this.viewRefreshTime+"</viewRefreshTime>\n";
+        }
+        if(this.viewBoundScale!=DEFAULT_VIEWBOUNDSCALE)
+        {
+            kml+="<viewBoundScale>"+this.viewBoundScale+"</viewBoundScale>\n";
+        }
       if(this.viewFormat!=null)
       {
             kml+="<viewFormat>"+SpecialCaseFormatter.toKMLString(this.viewFormat)+"</viewFormat>\n";

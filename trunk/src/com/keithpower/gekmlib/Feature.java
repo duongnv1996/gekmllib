@@ -373,7 +373,7 @@ abstract public class Feature extends ObjectNode
       }
       if(this.description!=null)
       {
-            kml+="<description>"+SpecialCaseFormatter.toKMLString(this.description)+"</description>\n";
+            kml+="<description><![CDATA["+SpecialCaseFormatter.toKMLString(this.description)+"]]></description>\n";
       }
         if(this.lookAt!=null)
         {
