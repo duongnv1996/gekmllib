@@ -446,7 +446,7 @@ abstract public class Feature extends ObjectNode
         }
         if(this.description!=null && this.isDescriptionDirty)
         {
-            change+="<description>"+SpecialCaseFormatter.toKMLString(this.description)+"</description>\n";
+            change+="<description><![CDATA["+SpecialCaseFormatter.toKMLString(this.description)+"]]></description>\n";
             this.isDescriptionDirty = false;
         }
         if(this.lookAt!=null && this.lookAt.isDirty())
