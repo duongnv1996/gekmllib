@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 public class ItemIcon extends ObjectNode
 {
-    protected String state;
+    protected List state = new ArrayList();
     private boolean isStateDirty;
     protected String href;
     private boolean isHrefDirty;
@@ -25,16 +25,26 @@ public class ItemIcon extends ObjectNode
         super(parent);
     }
 
-    public String getState()
+    public List getStates()
     {
         return this.state;
     }
 
-    public void setState(String value)
+    public void setStates(List value)
     {
         this.state = value;
         this.isStateDirty = true;
         setDirty();
+    }
+
+    public void addState(String value)
+    {
+        if(value!=null)
+        {
+        this.state.add(value);
+        this.isStateDirty = true;
+        setDirty();
+        }
     }
 
     public String getHref()

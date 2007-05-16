@@ -9,9 +9,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 public class GroundOverlay extends Overlay
 {
-    protected double altitude;
+    public static double DEFAULT_ALTITUDE=0;
+    protected double altitude = DEFAULT_ALTITUDE;
     private boolean isAltitudeDirty;
-    protected String altitudeMode;
+    public static String DEFAULT_ALTITUDEMODE="clampToGround";
+    protected String altitudeMode = DEFAULT_ALTITUDEMODE;
     private boolean isAltitudeModeDirty;
     protected LatLonBox latLonBox;
 
@@ -92,7 +94,10 @@ public class GroundOverlay extends Overlay
         kml+=">\n";
         }
         kml+=super.toKML(true);
-        kml+="<altitude>"+this.altitude+"</altitude>\n";
+        if(this.altitude!=DEFAULT_ALTITUDE)
+        {
+            kml+="<altitude>"+this.altitude+"</altitude>\n";
+        }
       if(this.altitudeMode!=null)
       {
             kml+="<altitudeMode>"+SpecialCaseFormatter.toKMLString(this.altitudeMode)+"</altitudeMode>\n";

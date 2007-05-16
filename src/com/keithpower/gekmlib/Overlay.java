@@ -9,9 +9,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 abstract public class Overlay extends Feature
 {
-    protected java.awt.Color color;
+    public static java.awt.Color DEFAULT_COLOR=Utility.createColor("ffffffff");
+    protected java.awt.Color color = DEFAULT_COLOR;
     private boolean isColorDirty;
-    protected int drawOrder;
+    public static int DEFAULT_DRAWORDER=0;
+    protected int drawOrder = DEFAULT_DRAWORDER;
     private boolean isDrawOrderDirty;
     protected Icon icon;
 
@@ -33,15 +35,7 @@ abstract public class Overlay extends Feature
 
     public void setColor(String hexValue)
     {
-        if(hexValue.length()!=8)
-        {
-             return;
-        }
-        int alpha = Integer.valueOf(hexValue.substring(0, 2), 16).intValue();
-        int r = Integer.valueOf(hexValue.substring(2, 4), 16).intValue();
-        int g = Integer.valueOf(hexValue.substring(4, 6), 16).intValue();
-        int b = Integer.valueOf(hexValue.substring(6, 8), 16).intValue();
-        java.awt.Color newCol = new java.awt.Color(r, g, b, alpha);
+        java.awt.Color newCol = Utility.createColor(hexValue);
         this.color = newCol;
         this.isColorDirty = true;
         setDirty();
@@ -99,7 +93,10 @@ abstract public class Overlay extends Feature
       {
             kml+="<color>"+SpecialCaseFormatter.toKMLString(this.color)+"</color>\n";
       }
-        kml+="<drawOrder>"+this.drawOrder+"</drawOrder>\n";
+        if(this.drawOrder!=DEFAULT_DRAWORDER)
+        {
+            kml+="<drawOrder>"+this.drawOrder+"</drawOrder>\n";
+        }
         if(this.icon!=null)
         {
             kml+=this.icon.toKML();

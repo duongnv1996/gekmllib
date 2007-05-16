@@ -15,7 +15,8 @@ public class LatLonAltBox extends LatLonBox
     public static double DEFAULT_MAXALTITUDE=0;
     protected double maxAltitude = DEFAULT_MAXALTITUDE;
     private boolean isMaxAltitudeDirty;
-    protected String altitudeMode;
+    public static String DEFAULT_ALTITUDEMODE="clampToGround";
+    protected String altitudeMode = DEFAULT_ALTITUDEMODE;
     private boolean isAltitudeModeDirty;
 
 

@@ -9,7 +9,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 public class NetworkLink extends Feature
 {
-    protected boolean refreshVisibility;
+    public static boolean DEFAULT_REFRESHVISIBILITY=false;
+    protected boolean refreshVisibility = DEFAULT_REFRESHVISIBILITY;
     private boolean isRefreshVisibilityDirty;
     public static boolean DEFAULT_FLYTOVIEW=false;
     protected boolean flyToView = DEFAULT_FLYTOVIEW;
@@ -113,7 +114,10 @@ public class NetworkLink extends Feature
         kml+=">\n";
         }
         kml+=super.toKML(true);
-        kml+="<refreshVisibility>"+this.refreshVisibility+"</refreshVisibility>\n";
+        if(this.refreshVisibility!=DEFAULT_REFRESHVISIBILITY)
+        {
+            kml+="<refreshVisibility>"+this.refreshVisibility+"</refreshVisibility>\n";
+        }
         if(this.flyToView!=DEFAULT_FLYTOVIEW)
         {
             kml+="<flyToView>"+this.flyToView+"</flyToView>\n";

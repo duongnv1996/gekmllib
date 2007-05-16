@@ -9,11 +9,14 @@ import java.util.ArrayList;
 import java.util.Iterator;
 public class BalloonStyle extends ObjectNode
 {
-    protected java.awt.Color color;
+    public static java.awt.Color DEFAULT_COLOR=Utility.createColor("ffffffff");
+    protected java.awt.Color color = DEFAULT_COLOR;
     private boolean isColorDirty;
-    protected java.awt.Color bgColor;
+    public static java.awt.Color DEFAULT_BGCOLOR=Utility.createColor("ffffffff");
+    protected java.awt.Color bgColor = DEFAULT_BGCOLOR;
     private boolean isBgColorDirty;
-    protected java.awt.Color textColor;
+    public static java.awt.Color DEFAULT_TEXTCOLOR=Utility.createColor("ff000000");
+    protected java.awt.Color textColor = DEFAULT_TEXTCOLOR;
     private boolean isTextColorDirty;
     protected String text;
     private boolean isTextDirty;
@@ -36,15 +39,7 @@ public class BalloonStyle extends ObjectNode
 
     public void setColor(String hexValue)
     {
-        if(hexValue.length()!=8)
-        {
-             return;
-        }
-        int alpha = Integer.valueOf(hexValue.substring(0, 2), 16).intValue();
-        int r = Integer.valueOf(hexValue.substring(2, 4), 16).intValue();
-        int g = Integer.valueOf(hexValue.substring(4, 6), 16).intValue();
-        int b = Integer.valueOf(hexValue.substring(6, 8), 16).intValue();
-        java.awt.Color newCol = new java.awt.Color(r, g, b, alpha);
+        java.awt.Color newCol = Utility.createColor(hexValue);
         this.color = newCol;
         this.isColorDirty = true;
         setDirty();
@@ -64,15 +59,7 @@ public class BalloonStyle extends ObjectNode
 
     public void setBgColor(String hexValue)
     {
-        if(hexValue.length()!=8)
-        {
-             return;
-        }
-        int alpha = Integer.valueOf(hexValue.substring(0, 2), 16).intValue();
-        int r = Integer.valueOf(hexValue.substring(2, 4), 16).intValue();
-        int g = Integer.valueOf(hexValue.substring(4, 6), 16).intValue();
-        int b = Integer.valueOf(hexValue.substring(6, 8), 16).intValue();
-        java.awt.Color newCol = new java.awt.Color(r, g, b, alpha);
+        java.awt.Color newCol = Utility.createColor(hexValue);
         this.bgColor = newCol;
         this.isBgColorDirty = true;
         setDirty();
@@ -92,15 +79,7 @@ public class BalloonStyle extends ObjectNode
 
     public void setTextColor(String hexValue)
     {
-        if(hexValue.length()!=8)
-        {
-             return;
-        }
-        int alpha = Integer.valueOf(hexValue.substring(0, 2), 16).intValue();
-        int r = Integer.valueOf(hexValue.substring(2, 4), 16).intValue();
-        int g = Integer.valueOf(hexValue.substring(4, 6), 16).intValue();
-        int b = Integer.valueOf(hexValue.substring(6, 8), 16).intValue();
-        java.awt.Color newCol = new java.awt.Color(r, g, b, alpha);
+        java.awt.Color newCol = Utility.createColor(hexValue);
         this.textColor = newCol;
         this.isTextColorDirty = true;
         setDirty();
