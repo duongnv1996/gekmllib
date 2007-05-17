@@ -86,6 +86,7 @@ public class IconStyle extends ColorStyle
         this.hotSpot = value;
         if(value!=null)
         {
+            value.setLabel("hotSpot");
             value.setParent(this);
             markCreatedNode(value);
         }

@@ -206,7 +206,7 @@ public class Kml extends Node
     {
         return this.href;
     }
-
+    
     /**
      * @param href the href to set
      */
@@ -214,7 +214,6 @@ public class Kml extends Node
     {
         this.href = href;
     }
-
 
     public String toKML()
     {
@@ -245,7 +244,6 @@ public class Kml extends Node
     {
         return toUpdateKML(false);
     }
-
     public String toUpdateKML(boolean suppressEnclosingTags)
     {
 	StringBuilder change = new StringBuilder();
@@ -290,8 +288,8 @@ public class Kml extends Node
         change.append("</kml>\n");
         setNotDirty();
         return change.toString();
-    }    
-
+    }
+    
     public Object clone() throws CloneNotSupportedException
     {
         Kml result = (Kml)super.clone();

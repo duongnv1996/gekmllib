@@ -18,9 +18,10 @@ public class LinearRing extends Geometry
     public static String DEFAULT_ALTITUDEMODE="clampToGround";
     protected String altitudeMode = DEFAULT_ALTITUDEMODE;
     private boolean isAltitudeModeDirty;
-//    protected String coordinates;
+//  protected String coordinates;
     private boolean isCoordinatesDirty;
     protected double [] coordinates;
+
 
     public LinearRing()
     {
@@ -68,95 +69,95 @@ public class LinearRing extends Geometry
         setDirty();
     }
 
-	public String getCoordinates()
+    public String getCoordinates()
+    {
+	String coordStr = "";
+	for (int i = 0; i < this.coordinates.length; i++)
+	{	    
+	    coordStr+= this.coordinates[i];
+	    if(i<(this.coordinates.length-1))
 	    {
-		String coordStr = "";
-		for (int i = 0; i < this.coordinates.length; i++)
-		{	    
-		    coordStr+= this.coordinates[i];
-		    if(i<(this.coordinates.length-1))
-		    {
-			if(i%3==2) 
-			{
-			    coordStr+=" ";
-			}
-			else
-			{
-			    coordStr+=",";
-			}
-		    }
-		}
-
-	        return coordStr;
-	    }
-
-	    public void setCoordinates(String value)
-	    {	
-		String [] coords = nonEmpty(value.split("[, ]"));
-	        double [] newCoords = new double[coords.length];
-	        for (int i = 0; i < coords.length; i++)
+		if(i%3==2) 
 		{
-	            try
-	            {
-	        	newCoords[i] = Double.parseDouble(coords[i]);
-	            }
-	            catch(NumberFormatException nfe)
-	            {
-	        	System.err.println("Error parsing double ("+coords[i]+") in Point.updateNumericalCoordinates "+nfe);        	
-	            }
+		    coordStr+=" ";
 		}
-	        setNumericalCoordinates(newCoords);
-	    }
-
-	    private String[] nonEmpty(String[] strings)
-	    {
-		int numNonEmpty = 0;
-		for (int i = 0; i < strings.length; i++)
+		else
 		{
-		    if(strings[i].trim().length()!=0)
-		    {
-			numNonEmpty++;
-		    }
+		    coordStr+=",";
 		}
-		String [] nonEmpties = new String[numNonEmpty];
-		int pos = 0;
-		for (int i = 0; i < strings.length; i++)
-		{
-		    if(strings[i].trim().length()!=0)
-		    {
-	    	    	nonEmpties[pos] = strings[i];
-	    	    	pos++;
-		    }
-		}
-		return nonEmpties;
 	    }
+	}
+        return coordStr;
+    }
 
-	    /**
-	     * @return the numericalCoordinates
-	     */
-	    public double [] getNumericalCoordinates()
-	    {
-	        return this.coordinates;
-	    }
+    public void setCoordinates(String value)
+    {	
+	String [] coords = nonEmpty(value.split("[, ]"));
+        double [] newCoords = new double[coords.length];
+        for (int i = 0; i < coords.length; i++)
+	{
+            try
+            {
+        	newCoords[i] = Double.parseDouble(coords[i]);
+            }
+            catch(NumberFormatException nfe)
+            {
+        	System.err.println("Error parsing double ("+coords[i]+") in Point.updateNumericalCoordinates "+nfe);        	
+            }
+	}
+        setNumericalCoordinates(newCoords);
+    }
 
-	    /**
-	     * @param numericalCoordinates the numericalCoordinates to set
-	     */
-	    public void setNumericalCoordinates(double [] numericalCoordinates)
+    private String[] nonEmpty(String[] strings)
+    {
+	int numNonEmpty = 0;
+	for (int i = 0; i < strings.length; i++)
+	{
+	    if(strings[i].trim().length()!=0)
 	    {
-	        this.coordinates = numericalCoordinates;
-		this.isCoordinatesDirty = true;
-		setDirty();
+		numNonEmpty++;
 	    }
+	}
+	String [] nonEmpties = new String[numNonEmpty];
+	int pos = 0;
+	for (int i = 0; i < strings.length; i++)
+	{
+	    if(strings[i].trim().length()!=0)
+	    {
+    	    	nonEmpties[pos] = strings[i];
+    	    	pos++;
+	    }
+	}
+	return nonEmpties;
+    }
 
-	    public void addNumericalCoordinate(double numericalCoordinate)
-	    {
-		double [] newCoords = new double[this.coordinates.length+1];
-		System.arraycopy(this.coordinates, 0, newCoords, 0, this.coordinates.length);
-		newCoords[this.coordinates.length] = numericalCoordinate;
-		this.isCoordinatesDirty = true;
-		setDirty();
-	    }
+    /**
+     * @return the numericalCoordinates
+     */
+    public double [] getNumericalCoordinates()
+    {
+        return this.coordinates;
+    }
+
+    /**
+     * @param numericalCoordinates the numericalCoordinates to set
+     */
+    public void setNumericalCoordinates(double [] numericalCoordinates)
+    {
+        this.coordinates = numericalCoordinates;
+	this.isCoordinatesDirty = true;
+	setDirty();
+    }
+
+    public void addNumericalCoordinate(double numericalCoordinate)
+    {
+	double [] newCoords = new double[this.coordinates.length+1];
+	System.arraycopy(this.coordinates, 0, newCoords, 0, this.coordinates.length);
+	newCoords[this.coordinates.length] = numericalCoordinate;
+	this.isCoordinatesDirty = true;
+	setDirty();
+    }
+
 
     public String toKML()
     {
@@ -193,7 +194,7 @@ public class LinearRing extends Geometry
       }
       if(this.coordinates!=null)
       {
-            kml+="<coordinates>"+SpecialCaseFormatter.toKMLString(this.getCoordinates())+"</coordinates>\n";
+	  kml+="<coordinates>"+SpecialCaseFormatter.toKMLString(this.getCoordinates())+"</coordinates>\n";
       }
         if(!suppressEnclosingTags)
         {
