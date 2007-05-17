@@ -42,6 +42,7 @@ public class ScreenOverlay extends Overlay
         this.overlayXY = value;
         if(value!=null)
         {
+            value.setLabel("overlayXY");
             value.setParent(this);
             markCreatedNode(value);
         }
@@ -61,6 +62,7 @@ public class ScreenOverlay extends Overlay
         this.screenXY = value;
         if(value!=null)
         {
+            value.setLabel("screenXY");
             value.setParent(this);
             markCreatedNode(value);
         }
@@ -80,6 +82,7 @@ public class ScreenOverlay extends Overlay
         this.rotationXY = value;
         if(value!=null)
         {
+            value.setLabel("rotationXY");
             value.setParent(this);
             markCreatedNode(value);
         }
@@ -99,6 +102,7 @@ public class ScreenOverlay extends Overlay
         this.size = value;
         if(value!=null)
         {
+            value.setLabel("size");
             value.setParent(this);
             markCreatedNode(value);
         }

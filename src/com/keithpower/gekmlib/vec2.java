@@ -9,6 +9,19 @@ import java.util.ArrayList;
 import java.util.Iterator;
 public class vec2 extends Node
 {
+    public static double DEFAULT_X=1.0;
+    protected double x = DEFAULT_X;
+    private boolean isXDirty;
+    public static double DEFAULT_Y=1.0;
+    protected double y = DEFAULT_Y;
+    private boolean isYDirty;
+    public static String DEFAULT_XUNITS="fraction";
+    protected String xunits = DEFAULT_XUNITS;
+    private boolean isXunitsDirty;
+    public static String DEFAULT_YUNITS="fraction";
+    protected String yunits = DEFAULT_YUNITS;
+    private boolean isYunitsDirty;
+    private String label="UNDEFINED";
 
 
     public vec2()
@@ -21,8 +34,109 @@ public class vec2 extends Node
         super(parent);
     }
 
+    public void setLabel(String label)
+    {
+	this.label = label;
+    }
+    
+    public double getX()
+    {
+        return this.x;
+    }
+
+    public void setX(double value)
+    {
+        this.x = value;
+        this.isXDirty = true;
+        setDirty();
+        if(this.parent!=null)
+	{
+	    this.parent.setDirty();
+	}
+    }
+
+    public double getY()
+    {
+        return this.y;
+    }
+
+    public void setY(double value)
+    {
+        this.y = value;
+        this.isYDirty = true;
+        setDirty();
+        if(this.parent!=null)
+	{
+	    this.parent.setDirty();
+	}
+    }
+
+    public String getXunits()
+    {
+        return this.xunits;
+    }
+
+    public void setXunits(String value)
+    {
+        this.xunits = value;
+        this.isXunitsDirty = true;
+        setDirty();
+        if(this.parent!=null)
+	{
+	    this.parent.setDirty();
+	}
+    }
+
+    public String getYunits()
+    {
+        return this.yunits;
+    }
+
+    public void setYunits(String value)
+    {
+        this.yunits = value;
+        this.isYunitsDirty = true;
+        setDirty();
+        if(this.parent!=null)
+	{
+	    this.parent.setDirty();
+	}
+    }
 
 
+
+    public String toKML()
+    {
+        return toKML(false);
+    }
+    public String toKML(boolean suppressEnclosingTags)
+    {
+	String kml="";
+        kml+="<"+this.label+" ";
+        kml+="x=\""+this.x+"\" ";
+        kml+="y=\""+this.y+"\" ";
+        kml+="xunits=\""+this.xunits+"\" ";
+        kml+="yunits=\""+this.yunits+"\" ";
+        kml+="/>\n";
+        return kml;
+    }
+    public String toUpdateKML()
+    {
+        return toUpdateKML(false);
+    }
+    public String toUpdateKML(boolean suppressEnclosingTags)
+    {
+        if(!isDirty())
+        {
+            return "";
+        }
+        else
+        {
+            setNotDirty();
+            return toKML();
+        }
+
+    }
     public Object clone() throws CloneNotSupportedException
     {
         vec2 result = (vec2)super.clone();
@@ -31,5 +145,9 @@ public class vec2 extends Node
     public void setRecursiveNotDirty()
     {
         super.setRecursiveNotDirty();
+        this.isXDirty = false;
+        this.isYDirty = false;
+        this.isXunitsDirty = false;
+        this.isYunitsDirty = false;
     }
 }

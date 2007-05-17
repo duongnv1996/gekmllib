@@ -375,6 +375,23 @@ public class KMLParser
 	addProperties(path, ListStyleProperties);
 	addProperties(path, ObjectNodeProperties);
 	digester.addSetNext(path, "addListStyle");
+
+	path="*/screenXY";
+	addObject(path, vec2.class);
+	digester.addSetNext(path, "addScreenXY");
+	path="*/overlayXY";
+	addObject(path, vec2.class);
+	digester.addSetNext(path, "addOverlayXY");
+	path="*/rotationXY";
+	addObject(path, vec2.class);
+	digester.addSetNext(path, "addRotationXY");
+	path="*/size";
+	addObject(path, vec2.class);
+	digester.addSetNext(path, "addSize");
+	path="*/hotSpot";
+	addObject(path, vec2.class);
+	digester.addSetNext(path, "addHotSpot");
+
 	digester.addCallMethod("*/color", "setColor", 1, new Class[] {java.lang.String.class});
 	digester.addCallParam("*/color", 0);
 	digester.addCallMethod("*/when", "setWhen", 1, new Class[] {java.lang.String.class});
